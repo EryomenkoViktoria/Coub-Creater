@@ -46,7 +46,6 @@ namespace Test.Cube
                 _errorPanel.SetActive(true);
                 return;
             }
-
             ConvertNewData();
         }
 
@@ -60,22 +59,36 @@ namespace Test.Cube
 
         private bool IsError()
         {
-            bool error = true;
-            string pattern = @"\d";
+            bool error = false;
+            string pattern = @"[0-9]";
+
+
+           /// //string pattern = @"\d";
             var data = new string[]
             {
+                
              _speedGrid.text,
              _distanseGrid.text,
              _timeGrid.text,
             };
 
+            
             for (int i = 0; i < data.Length; i++)
             {
-                if (Regex.IsMatch(data[i], pattern) || (data[i] != ""))
+                if (!(Regex.IsMatch(data[i], pattern)))
                 {
-                    error = false;
+                   
+                    error = true;
+                    return error;
+                }
+
+                if (data[i] == "")
+                {
+                    error = true;
+                    return error;
                 }
             }
+
 
             return error;
         }
